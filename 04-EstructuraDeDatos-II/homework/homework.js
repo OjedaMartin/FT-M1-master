@@ -106,9 +106,38 @@ function Node(value)
 //    - Retornar dicho valor.
 
 function HashTable() {
-
+this.numBuckets = 35
+this.data = new Array(this.numBuckets)
 }
 
+HashTable.prototype.set = function set (key, value)
+{
+  if (typeof key !== "string") throw new TypeError ("Keys must be strings") ;
+  const bucket = this.hash(key)
+  if (!this.data [bucket]) this.data [bucket]= {}
+  this.data [bucket][key] = value
+}
+HashTable.prototype.get = function get (key) 
+{
+  const bucket = this.hash(key)
+  if (this.data [bucket]) return this.data [bucket][key]
+  return undefined
+}
+HashTable.prototype.hasKey = function hasKey (key)
+{
+  const bucket = this.hash(key)
+  if (this.data [bucket]) return this.data [bucket].hasOwnProperty(key)
+  return false 
+}
+HashTable.prototype.hash = function hash (key)
+{
+  let code = 0 
+  for (let i = 0; i < key.length; i++) {
+    code += key.charCodeAt(i)
+    
+  }
+  return code % this.numBuckets
+}
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
