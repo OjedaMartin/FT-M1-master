@@ -38,7 +38,7 @@ function cacheFunction(cb) {
  let cache = {};
   return function (val) {
     if (!cache.hasOwnProperty(val)){
-      cache [val] = cb(val);
+      cache [val] = cb(val);    
     }
     return cache[val];
     }
